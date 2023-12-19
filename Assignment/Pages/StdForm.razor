@@ -1,0 +1,46 @@
+﻿@page "/StdForm"
+@using Assignment.Models;
+
+<h3>Student Form</h3>
+
+<EditForm Model="@student" OnValidSubmit="@HandleOnSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label>
+        Enter Student Id:
+        <InputNumber @bind-Value="student.sid" />
+    </label>
+    <br>
+    <label>
+        Enter Student Name:
+        <InputText @bind-Value="student.Sname" />
+    </label>
+    <br>
+    <br>
+    <label>
+        Enter Student Sname:
+        <InputText @bind-Value="student.Sname" />
+    </label>
+    <br>
+    <label>
+        Enter Student Standing:
+        <InputText type="date" @bind-Value="student.Standing" />
+    </label>
+
+    <br>
+    <button @onclick="HandleOnSubmit">Submit</button>
+</EditForm>
+
+@code {
+    [Inject]
+    private StudentService StudentService { get; set; }
+
+    private Student student = new Student();
+
+    private async Task HandleOnSubmit()
+    {
+        
+        await StudentService.AddStudent(student);
+    }
+}
